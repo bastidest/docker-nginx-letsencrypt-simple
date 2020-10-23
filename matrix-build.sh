@@ -2,6 +2,7 @@
 set -euo pipefail
 
 IMAGE="library/nginx"
+PAST_DAYS=90
 
 function getToken() {
     curl -s --user "$DOCKER_USERNAME:$DOCKER_PASSWORD" "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${IMAGE}:pull" | jq -r '.token'
@@ -19,9 +20,11 @@ for tag in $TAGS ; do
     now_seconds=$(date -u +"%s")
     diff=$((now_seconds - ts_seconds))
 
-    if [[ $diff < $((7 * 24 * 60 * 60)) ]] ; then
+    if (( diff < ((PAST_DAYS * 24 * 60 * 60)) )) ; then
 	NEW_TAGS+=("$tag")
-	echo "added $tag"
+	echo "added $tag ($timestamp)"
+    else
+	echo "did not add $tag ($timestamp)"
     fi
 done
 
