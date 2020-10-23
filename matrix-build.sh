@@ -26,8 +26,10 @@ for tag in $TAGS ; do
     fi
 done
 
+set +e
 for tag in "${NEW_TAGS[@]}" ; do
     echo "NGINX_BASE_VERSION=$tag" > .env
     docker-compose build
     docker-compose push
 done
+set -e
