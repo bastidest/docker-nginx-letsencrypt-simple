@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: apt-get install -y curl jq
+      run: sudo apt-get install -y curl jq
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
