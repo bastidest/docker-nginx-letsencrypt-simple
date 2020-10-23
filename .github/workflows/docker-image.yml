@@ -12,12 +12,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker-compose build --build-arg NGINX_BASE_VERSION=1.19.3
+    - name: Install dependencies
+      run: apt-get install -y curl jq
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Push the Docker image
-      run: docker-compose push
+    - name: Build and push all docker images
+      run: DOCKER_USERNAME="${{ secrets.DOCKERHUB_USERNAME }}" DOCKER_PASSWORD="${{ secrets.DOCKERHUB_TOKEN }}" ./matrix-build.sh
