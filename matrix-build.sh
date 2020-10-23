@@ -8,7 +8,7 @@ function getToken() {
 }
 
 # query all existing image tags
-TAGS=$(curl -s "https://registry.hub.docker.com/v1/repositories/$IMAGE/tags" | jq -r '.[].name')
+TAGS=$(curl -s "https://registry.hub.docker.com/v1/repositories/$IMAGE/tags" | jq -r '.[].name' | grep -v alpine)
 TOKEN=$(getToken)
 
 NEW_TAGS=()
