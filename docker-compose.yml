@@ -6,8 +6,8 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-      args:
-        - NGINX_BASE_VERSION=${NGINX_BASE_VERSION}
+      # args:
+      #   - NGINX_BASE_VERSION=${NGINX_BASE_VERSION}
     volumes:
       - ./example/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./example/conf.d:/etc/nginx/conf.d:ro
