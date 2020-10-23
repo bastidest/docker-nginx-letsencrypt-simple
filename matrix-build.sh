@@ -22,7 +22,6 @@ for tag in $TAGS ; do
     if [[ $diff < $((7 * 24 * 60 * 60)) ]] ; then
 	NEW_TAGS+=("$tag")
 	echo "added $tag"
-	break
     fi
 done
 
