@@ -31,6 +31,8 @@ done
 set +e
 for tag in "${NEW_TAGS[@]}" ; do
     echo "NGINX_BASE_VERSION=$tag" > .env
+    # try to pull the old image before pushing
+    docker-compose pull
     docker-compose build
     docker-compose push
 done
